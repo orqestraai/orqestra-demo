@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    env:
+      PROJECT_NAME: Orqestra Demo
+      FRONTEND_HOST: http://localhost:5173
+      ENVIRONMENT: local
+      SECRET_KEY: demo-ci-secret-key
+      FIRST_SUPERUSER: demo@example.com
+      FIRST_SUPERUSER_PASSWORD: demo-ci-password
+      EMAILS_FROM_EMAIL: demo@example.com
+      DATABASE_URL: sqlite:///./demo-ci.db
+      POSTGRES_SERVER: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: demo-ci-password
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install backend
+        run: uv sync --locked
+      - name: Lint and test
+        run: uv run poe gate
+        working-directory: app
+
+  frontend:
+    name: frontend
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+      - name: Install frontend
+        run: bun install --frozen-lockfile
+        working-directory: web
+      - name: Lint, typecheck, and unit test
+        run: bun run gate
+        working-directory: web

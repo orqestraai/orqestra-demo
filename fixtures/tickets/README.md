@@ -1,6 +1,5 @@
-# Ticket Fixtures
+# Ticket Drafts
 
-This directory is reserved for the canonical ADR-121 demo ticket drafts. Ticket #4545
-adds the dependency-diamond fixtures and their planted-seam variant. Keeping the drafts
-outside application packages lets each demo publish fresh issues without changing the
-seed application.
+These five canonical ADR-121 drafts are published as fresh issues for each demo or
+nightly run. See [`../README.md`](../README.md) for dependency order, mode selection,
+and publishing commands.

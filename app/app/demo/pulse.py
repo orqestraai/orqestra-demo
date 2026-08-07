@@ -1,9 +1,18 @@
+from enum import Enum
+from typing import Final
+
 from sqlmodel import Field, SQLModel
+
+DEMO_SERVICE_NAME: Final[str] = "orqestra-demo"
+
+
+class DemoPulseStatus(str, Enum):
+    OK = "ok"
 
 
 class DemoPulse(SQLModel):
-    service: str = "orqestra-demo"
-    status: str = "ok"
+    service: str = DEMO_SERVICE_NAME
+    status: DemoPulseStatus = DemoPulseStatus.OK
     sequence: int = Field(gt=0)
 
 

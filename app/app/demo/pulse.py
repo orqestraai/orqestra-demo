@@ -12,6 +12,7 @@ class DemoPulse(SQLModel):
     service: str
     status: str
     sequence: int
+    summary: str | None = None
 
 
 def next_pulse_sequence() -> int:

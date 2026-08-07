@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 
 from app.api.deps import get_current_user
 from app.demo.pulse import DemoPulse, build_demo_pulse, next_pulse_sequence
+from app.demo.pulse_summary import format_pulse_summary
 
 router = APIRouter(
     prefix="/demo", tags=["demo"], dependencies=[Depends(get_current_user)]
@@ -13,4 +14,6 @@ def read_pulse() -> DemoPulse:
     """
     Report a demo service pulse for downstream fixture tickets.
     """
-    return build_demo_pulse(next_pulse_sequence())
+    pulse = build_demo_pulse(next_pulse_sequence())
+    pulse.summary = format_pulse_summary(pulse)
+    return pulse

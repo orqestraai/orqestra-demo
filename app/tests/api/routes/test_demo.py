@@ -16,6 +16,7 @@ def test_read_pulse(
     assert content["status"] == "ok"
     assert isinstance(content["sequence"], int)
     assert content["sequence"] > 0
+    assert content["summary"] == f"orqestra-demo is ok (pulse {content['sequence']})"
 
 
 def test_read_pulse_requires_authentication(client: TestClient) -> None:

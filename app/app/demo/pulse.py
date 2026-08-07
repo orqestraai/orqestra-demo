@@ -14,6 +14,7 @@ class DemoPulse(SQLModel):
     service: str = DEMO_SERVICE_NAME
     status: DemoPulseStatus = DemoPulseStatus.OK
     sequence: int = Field(gt=0)
+    summary: str | None = None
 
 
 def build_demo_pulse(sequence: int = 1) -> DemoPulse:

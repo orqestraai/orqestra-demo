@@ -1,7 +1,8 @@
 from fastapi.testclient import TestClient
 
 from app.core.config import settings
-from app.demo.pulse import DEMO_SERVICE_NAME, DemoPulseStatus
+from app.demo.pulse import DEMO_SERVICE_NAME, DemoPulse, DemoPulseStatus
+from app.demo.pulse_summary import format_pulse_summary
 
 
 def test_read_pulse_authenticated(
@@ -16,6 +17,12 @@ def test_read_pulse_authenticated(
     assert content["service"] == DEMO_SERVICE_NAME
     assert content["status"] == DemoPulseStatus.OK
     assert content["sequence"] > 0
+    expected_pulse = DemoPulse(
+        service=content["service"],
+        status=content["status"],
+        sequence=content["sequence"],
+    )
+    assert content["summary"] == format_pulse_summary(expected_pulse)
 
 
 def test_read_pulse_requires_authentication(client: TestClient) -> None:

@@ -2,10 +2,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { render, screen, waitFor } from "@testing-library/react"
 import { afterEach, describe, expect, it, vi } from "vitest"
 
-import { fetchDemoPulse } from "@/api/demoPulse"
+import { DEMO_PULSE_STATUS_OK, fetchDemoPulse } from "@/api/demoPulse"
 import { DemoPulseCard } from "./DemoPulseCard"
 
 vi.mock("@/api/demoPulse", () => ({
+  DEMO_PULSE_STATUS_OK: "ok",
   fetchDemoPulse: vi.fn(),
 }))
 
@@ -39,7 +40,7 @@ describe("DemoPulseCard", () => {
   it("renders the service, status, and sequence once the pulse loads", async () => {
     mockedFetchDemoPulse.mockResolvedValue({
       service: "orqestra-demo",
-      status: "ok",
+      status: DEMO_PULSE_STATUS_OK,
       sequence: 1,
       summary: "orqestra-demo is ok at sequence 1",
     })
@@ -49,7 +50,7 @@ describe("DemoPulseCard", () => {
     await waitFor(() => {
       expect(screen.getByText("orqestra-demo")).toBeDefined()
     })
-    expect(screen.getByText("ok")).toBeDefined()
+    expect(screen.getByText(DEMO_PULSE_STATUS_OK)).toBeDefined()
     expect(screen.getByText("Sequence #1")).toBeDefined()
   })
 

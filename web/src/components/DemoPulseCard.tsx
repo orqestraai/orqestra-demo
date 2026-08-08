@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 
-import { fetchDemoPulse } from "@/api/demoPulse"
+import { DEMO_PULSE_STATUS_OK, fetchDemoPulse } from "@/api/demoPulse"
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
@@ -47,7 +47,11 @@ export function DemoPulseCard() {
         <CardDescription>Sequence #{data.sequence}</CardDescription>
       </CardHeader>
       <CardContent>
-        <Badge variant={data.status === "ok" ? "default" : "destructive"}>
+        <Badge
+          variant={
+            data.status === DEMO_PULSE_STATUS_OK ? "default" : "destructive"
+          }
+        >
           {data.status}
         </Badge>
       </CardContent>

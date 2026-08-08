@@ -8,6 +8,7 @@ class DemoPulse(SQLModel):
     service: str
     status: str
     sequence: int = Field(gt=0)
+    summary: str | None = None
 
 
 def build_demo_pulse(sequence: int) -> DemoPulse:

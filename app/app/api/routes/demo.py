@@ -11,4 +11,6 @@ def read_pulse(_current_user: CurrentUser) -> DemoPulse:
     """
     Get demo pulse status.
     """
-    return build_demo_pulse()
+    pulse = build_demo_pulse()
+    pulse.summary = f"{pulse.service} is {pulse.status.value} (pulse {pulse.sequence})"
+    return pulse

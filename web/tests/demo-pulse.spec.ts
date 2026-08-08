@@ -33,6 +33,7 @@ test.describe("Demo pulse", () => {
     // Confirms the E2E run hits the real backend rather than a mocked response.
     expect(body.service).toBeTruthy()
     expect(body.summary).toBeTruthy()
+    expect(body.sequence).toBeGreaterThan(0)
 
     await expect(page.getByText(body.service, { exact: true })).toBeVisible()
     await expect(page.getByText(body.status, { exact: true })).toBeVisible()

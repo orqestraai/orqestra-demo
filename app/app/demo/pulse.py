@@ -13,6 +13,7 @@ class DemoPulse(SQLModel):
     service: str
     status: DemoPulseStatus
     sequence: int
+    summary: str | None = None
 
 
 def build_demo_pulse(sequence: int = 1) -> DemoPulse:

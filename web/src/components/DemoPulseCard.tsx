@@ -54,6 +54,7 @@ export function DemoPulseCard() {
         >
           {data.status}
         </Badge>
+        {data.summary ? <p>{data.summary}</p> : null}
       </CardContent>
     </Card>
   )

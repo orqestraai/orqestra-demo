@@ -52,6 +52,7 @@ describe("DemoPulseCard", () => {
     })
     expect(screen.getByText(DEMO_PULSE_STATUS_OK)).toBeDefined()
     expect(screen.getByText("Sequence #1")).toBeDefined()
+    expect(screen.getByText("orqestra-demo is ok at sequence 1")).toBeDefined()
   })
 
   it("shows a visible failure message when the pulse request rejects", async () => {

@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 
 from app.api.deps import get_current_user
 from app.demo.pulse import DemoPulse, build_pulse
+from app.demo.pulse_summary import format_pulse_summary
 
 router = APIRouter(prefix="/demo", tags=["demo"])
 
@@ -11,4 +12,6 @@ def read_pulse() -> DemoPulse:
     """
     Get the demo service pulse.
     """
-    return build_pulse()
+    pulse = build_pulse()
+    pulse.summary = format_pulse_summary(pulse)
+    return pulse

@@ -60,6 +60,12 @@ export function DemoPulseCard() {
               <dt className="font-medium">Sequence:</dt>
               <dd>{pulse.sequence}</dd>
             </div>
+            {pulse.summary && (
+              <div className="flex gap-1">
+                <dt className="font-medium">Summary:</dt>
+                <dd>{pulse.summary}</dd>
+              </div>
+            )}
           </dl>
         )}
       </CardContent>

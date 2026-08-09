@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
 from app.core.config import settings
+from app.demo.pulse import DemoPulseStatus
 
 
 def test_read_pulse_authenticated(
@@ -13,7 +14,7 @@ def test_read_pulse_authenticated(
     assert response.status_code == 200
     content = response.json()
     assert content["service"] == "orqestra-demo"
-    assert content["status"] == "ok"
+    assert content["status"] == DemoPulseStatus.OK
     assert isinstance(content["sequence"], int)
     assert content["sequence"] > 0
 
